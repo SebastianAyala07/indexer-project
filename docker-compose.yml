@@ -12,3 +12,16 @@ services:
     ports:
       - "4080:4080"
     container_name: zincsearch
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "7777:7777"
+    depends_on:
+      - zincsearch
+    environment:
+      ZINCSEARCH_API_URL: "http://zincsearch"
+      ZINCSEARCH_API_PORT: 4080
+      ZINCSEARCH_AUTHORIZATION: "Basic YWRtaW46YWRtaW4="
