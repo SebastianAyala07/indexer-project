@@ -25,6 +25,7 @@ type SearchResponse struct {
 				BodyData string `json:"bodyData"`
 				From     string `json:"From"`
 				To       string `json:"To"`
+				Date     string `json:"Date"`
 			} `json:"_source"`
 		} `json:"hits"`
 	}

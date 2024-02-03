@@ -8,6 +8,7 @@ import (
 	"mime/quotedprintable"
 	"os"
 	"path/filepath"
+	"runtime/pprof"
 	"strings"
 	"time"
 )
@@ -98,7 +99,19 @@ func visitFile(path string, f os.FileInfo, err error) error {
 }
 
 func main() {
-
+	cpuProfile, err := os.Create("cpu_profile.prof")
+	if err != nil {
+		panic(err)
+	}
+	defer cpuProfile.Close()
+	pprof.StartCPUProfile(cpuProfile)
+	defer pprof.StopCPUProfile()
+	memProfile, err := os.Create("mem_profile.prof")
+	if err != nil {
+		panic(err)
+	}
+	defer memProfile.Close()
+	pprof.WriteHeapProfile(memProfile)
 	start := time.Now()
 	if len(os.Args) < 2 {
 		fmt.Println("Por favor, proporciona la ruta del directorio")
@@ -106,7 +119,7 @@ func main() {
 	}
 
 	root := os.Args[1]
-	err := filepath.Walk(root, visitFile)
+	err = filepath.Walk(root, visitFile)
 
 	if len(fileContents) > 0 {
 		fileCount++

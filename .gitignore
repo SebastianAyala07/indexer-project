@@ -2,3 +2,6 @@ data/*
 tmp/*
 .DS_Store
 scripts/indexer
+vendor/
+vue-project/.vscode/
+vue-project/node_modules/
