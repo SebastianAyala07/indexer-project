@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Creando el directorio destino
+mkdir -p ./tmp/dataEmails
 mkdir -p ./tmp/dataEmails/ndjson
 
 # Directorio que contiene los archivos JSON
